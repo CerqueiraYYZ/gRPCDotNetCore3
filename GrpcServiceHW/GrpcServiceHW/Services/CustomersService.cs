@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using GrpcServiceHW.CustomerOperations;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,42 +12,14 @@ namespace GrpcServiceHW.Services
     {
         private readonly ILogger<CustomersService> _logger;
 
-        public CustomersService()
-        {
-
-        }
-
         public CustomersService(ILogger<CustomersService> logger)
         {
             _logger = logger;
         }
         public override Task<CustomerModel> GetCustomerInfo(CustomerLookupModel request, ServerCallContext context)
         {
-            return GetCustomerInfoByID(request);
+            return CustomerGenralOperations.GetCustomerInfoByID(request);
 
-        }
-
-        private static Task<CustomerModel> GetCustomerInfoByID(CustomerLookupModel request)
-        {
-            CustomerModel output = new CustomerModel();
-
-            if (request.UserId == 1)
-            {
-                output.FirstName = "Alfredo";
-                output.Lastname = "Cerqueira";
-            }
-            else if (request.UserId == 2)
-            {
-                output.FirstName = "Pablo";
-                output.Lastname = "El Pablo";
-            }
-            else
-            {
-                output.FirstName = "Frank";
-                output.Lastname = "El Frank";
-            }
-
-            return Task.FromResult(output);
         }
 
         public override async Task GetNewCustomers(NewCustomerRequest request, IServerStreamWriter<CustomerModel> responseStream, ServerCallContext context)

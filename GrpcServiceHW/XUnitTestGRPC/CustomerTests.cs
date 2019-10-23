@@ -1,4 +1,5 @@
 ﻿using GrpcServiceHW;
+using GrpcServiceHW.CustomerOperations;
 using GrpcServiceHW.Services;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,8 @@ namespace XUnitTestGRPC
             string expectedName = "Alfredo";
             string expectedLastName= "Cerqueira";
             //Act
-            CustomersService customersService = new CustomersService();
             CustomerLookupModel customer = new CustomerLookupModel { UserId = 1 };
-
-
-            var response = await customersService.GetCustomerInfo(customer,null);
+            var response = await CustomerGenralOperations.GetCustomerInfoByID(customer);
 
             //Assert
 
