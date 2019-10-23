@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServiceHW";
+
+service Customer {
+	rpc GetCustomerInfo (CustomerLookupModel) returns (CustomerModel);
+	//stream ayuda para poder retornar mas de 1 modelo
+	rpc GetNewCustomers (NewCustomerRequest) returns (stream CustomerModel);
+
+}
+
+message NewCustomerRequest{
+
+}
+
+message CustomerLookupModel {
+	int32 userId = 1;
+}
+
+message CustomerModel {
+	string firstName = 1;
+	string lastname = 2;
+	string emailAdderss = 3;
+	bool isAlive = 4;
+	int32 age = 5;
+}
